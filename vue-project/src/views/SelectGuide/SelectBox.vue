@@ -162,10 +162,10 @@ export default {
       this.menuWrapShow = false;
       this.selectedText = optData.name;
 
-      this.$emit('getOptValue',optData.value);
-      this.$emit('getOptIdx', index);
+      this.$emit('getOptValue', optData.type, optData.value);
+      this.$emit('getOptIdx', optData.type, index);
 
-      console.log('index : ' + index, 'value : ' + optData.value);
+      console.log('type : ' + typeCheck ,'index : ' + index, 'value : ' + valueCheck);
     },
   },
   mounted() {

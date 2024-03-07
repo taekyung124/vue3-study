@@ -2,17 +2,17 @@
   <div>
     <div class="title">Select 가이드</div>
     <div class="sub-title">Select Type A</div>
-    <SelectBox :optList="optListA" :selectedText="defaultText" @getOptValue="clickedValA" @getOptIdx="clickedIdxA"/>
+    <SelectBox :optList="optListA" :selectedText="defaultText" @getOptValue="clickedVal" @getOptIdx="clickedIdx"/>
     <div> index : {{ selectedIdxA }} / value : {{ selectedValA }} </div>
     <button @click="getSelectItemA">Select A Option Check</button>
 
     <div class="sub-title">Select Type B</div>
-    <SelectBox selType="SelectTypeB" :optList="optListB" :selectedText="defaultTextB" @getOptValue="clickedValB" @getOptIdx="clickedIdxB"/>
+    <SelectBox selType="SelectTypeB" :optList="optListB" :selectedText="defaultTextB" @getOptValue="clickedVal" @getOptIdx="clickedIdx"/>
     <div> index : {{ selectedIdxB }} / value : {{ selectedValB }} </div>
     <button @click="getSelectItemB">Select B Option Check</button>
 
     <div class="sub-title">Select Type C</div>
-    <SelectBox selType="SelectTypeC" :optList="optListC" icoType="ico-type-sm" :selectedText="defaultText" @getOptValue="clickedValC" @getOptIdx="clickedIdxC"/>
+    <SelectBox selType="SelectTypeC" :optList="optListC" icoType="ico-type-sm" :selectedText="defaultText" @getOptValue="clickedVal" @getOptIdx="clickedIdx"/>
     <div> index : {{ selectedIdxC }} / value : {{ selectedValC }} </div>
     <button @click="getSelectItemC">Select C Option Check</button>
 
@@ -46,25 +46,25 @@ export default {
         'SelectTypeC',
       ],
       optListA: [
-        { name: '옵션 A-1', value: 'A-1',},
-        { name: '옵션 A-2', value: 'A-2',},
-        { name: '옵션 A-3', value: 'A-3',},
-        { name: '옵션 A-4', value: 'A-4',},
-        { name: '옵션 A-5', value: 'A-5',},
+        { name: '옵션 A-1', value: 'A-1', type: 'A'},
+        { name: '옵션 A-2', value: 'A-2', type: 'A'},
+        { name: '옵션 A-3', value: 'A-3', type: 'A'},
+        { name: '옵션 A-4', value: 'A-4', type: 'A'},
+        { name: '옵션 A-5', value: 'A-5', type: 'A'},
       ],
       optListB: [
-        { name: '옵션 B-1', value: 'B-1',},
-        { name: '옵션 B-2', value: 'B-2',},
-        { name: '옵션 B-3', value: 'B-3',},
-        { name: '옵션 B-4', value: 'B-4',},
-        { name: '옵션 B-5', value: 'B-5',},
+        { name: '옵션 B-1', value: 'B-1', type: 'B'},
+        { name: '옵션 B-2', value: 'B-2', type: 'B'},
+        { name: '옵션 B-3', value: 'B-3', type: 'B'},
+        { name: '옵션 B-4', value: 'B-4', type: 'B'},
+        { name: '옵션 B-5', value: 'B-5', type: 'B'},
       ],
       optListC: [
-        { name: '옵션 C-1', value: 'C-1',},
-        { name: '옵션 C-2', value: 'C-2',},
-        { name: '옵션 C-3', value: 'C-3',},
-        { name: '옵션 C-4', value: 'C-4',},
-        { name: '옵션 C-5', value: 'C-5',},
+        { name: '옵션 C-1', value: 'C-1', type: 'C'},
+        { name: '옵션 C-2', value: 'C-2', type: 'C'},
+        { name: '옵션 C-3', value: 'C-3', type: 'C'},
+        { name: '옵션 C-4', value: 'C-4', type: 'C'},
+        { name: '옵션 C-5', value: 'C-5', type: 'C'},
       ],
       icoType: [
         'ico-type-md',
@@ -76,23 +76,23 @@ export default {
 
   },
   methods: {
-    clickedValA(changeVal) {
-        this.selectedValA = changeVal;
+    clickedVal(type, value) {
+      if( type === 'A' ) {
+        this.selectedValA = value;
+      } else if( type === 'B' ) {
+        this.selectedValB = value;
+      } else if( type === 'C' ) {
+        this.selectedValC = value;
+      }
     },
-    clickedIdxA(changeIdx) {
-      this.selectedIdxA = changeIdx;
-    },
-    clickedValB(changeVal) {
-      this.selectedValB = changeVal;
-    },
-    clickedIdxB(changeIdx) {
-      this.selectedIdxB = changeIdx;
-    },
-    clickedValC(changeVal) {
-      this.selectedValC = changeVal;
-    },
-    clickedIdxC(changeIdx) {
-      this.selectedIdxC = changeIdx;
+    clickedIdx(type, index) {
+      if( type === 'A' ) {
+        this.selectedIdxA = index;
+      } else if( type === 'B' ) {
+        this.selectedIdxB = index;
+      } else if( type === 'C' ) {
+        this.selectedIdxC = index;
+      }
     },
 
     getSelectItemA(){
