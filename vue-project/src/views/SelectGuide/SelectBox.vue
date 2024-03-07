@@ -44,10 +44,6 @@ export default {
       type: String,
       default: '옵션을 선택해 주세요.',
     },
-    defaultTextB: {
-      type: String,
-      default: '옵션 B-2',
-    },
   },
   computed: {
     selTypeStyle () {
@@ -162,17 +158,11 @@ export default {
       this.menuWrapShow = false;
       this.selectedText = optData.name;
 
-      this.$emit('getOptValue', optData.type, optData.value);
-      this.$emit('getOptIdx', optData.type, index);
-
-      console.log('type : ' + typeCheck ,'index : ' + index, 'value : ' + valueCheck);
+      this.$emit('getOpt', optData.value, index);
     },
   },
   mounted() {
     this.selectedText = this.$props.defaultText;
-    if(this.$props.selType === 'SelectTypeB') {
-      this.selectedText = this.$props.defaultTextB;
-    }
   },
 }
 </script>
