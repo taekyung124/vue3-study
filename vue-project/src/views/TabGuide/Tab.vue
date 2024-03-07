@@ -1,11 +1,21 @@
 <template>
   <div>
     <div class="title">Tab 가이드</div>
+    <TabListButton></TabListButton>
+    <TabContentBox></TabContentBox>
   </div>
 </template>
 <script>
+import TabListButton from "@/views/TabGuide/TabListButton.vue";
+import TabContentBox from "@/views/TabGuide/TabContentBox.vue";
+
 export default {
   name: 'TabGuide',
+  components: {
+    TabListButton,
+    TabContentBox,
+  },
+
 }
 </script>
 <style scoped>

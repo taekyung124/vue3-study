@@ -2,15 +2,15 @@
   <div class="ui-select" :class="$props.selType" :style="selTypeStyle">
     <div class="ui-select-box" :style="isActiveStyle">
       <button class="ui-select-menu-btn" @click="onClickShow">
-        <i :class="icoType" :style="ArwStyle"></i>
+        <i :class="icoType" :style="arwStyle"></i>
         <span class="ui-select-menu-text">{{selectedText}}</span>
       </button>
     </div>
-    <div class="ui-select-menu-wrap" v-if="MenuWrapShow" :style="ComputedTop">
-      <ul class="ui-select-menu-list" :style="BorderStyle">
-        <li class="ui-select-menu-item" :style="OptListStyle"
+    <div class="ui-select-menu-wrap" v-if="menuWrapShow" :style="computedTop">
+      <ul class="ui-select-menu-list" :style="borderStyle">
+        <li class="ui-select-menu-item" :style="optListStyle"
             v-for="(optData, index) in $props.optList" :key="index" :value="optData.value"
-            @click="onClickItem(optData)"
+            @click="onClickItem(optData,index)"
         >
           {{ optData.name }}
         </li>
@@ -23,8 +23,8 @@ export default {
   name: 'SelectBox',
   data() {
     return {
-      selectedText: '옵션 선택',
-      MenuWrapShow: false,
+      menuWrapShow: false,
+      selectedText: '',
     }
   },
   props: {
@@ -39,6 +39,14 @@ export default {
     icoType: {
       type: String,
       default: 'ico-type-md',
+    },
+    defaultText: {
+      type: String,
+      default: '옵션을 선택해 주세요.',
+    },
+    defaultTextB: {
+      type: String,
+      default: '옵션 B-2',
     },
   },
   computed: {
@@ -68,7 +76,7 @@ export default {
     },
     isActiveStyle () { // 옵션 리스트 노출 여부에 따라 select-box 스타일 수정
       if(this.$props.selType !== 'SelectTypeC') {
-        if( this.MenuWrapShow ) {
+        if( this.menuWrapShow ) {
           return {
             border: '1px solid black',
             borderBottom: '0',
@@ -86,8 +94,8 @@ export default {
         }
       }
     },
-    ArwStyle () { // 옵션 리스트 노출 여부에 따라 아이콘 스타일 수정
-      if( this.MenuWrapShow ) {
+    arwStyle () { // 옵션 리스트 노출 여부에 따라 아이콘 스타일 수정
+      if( this.menuWrapShow ) {
         return {
           transform: 'rotate(180deg)',
         }
@@ -97,7 +105,7 @@ export default {
         }
       }
     },
-    ComputedTop () { // ui-select-menu-wrap 스타일 수정
+    computedTop () { // ui-select-menu-wrap 스타일 수정
       if (this.$props.selType === 'SelectTypeA') {
         return {
           top: '44px',
@@ -116,7 +124,7 @@ export default {
         }
       }
     },
-    BorderStyle () {
+    borderStyle () {
       if(this.$props.selType !== 'SelectTypeC') {
         return {
           borderRadius: '0 0 6px 6px'
@@ -127,7 +135,7 @@ export default {
         }
       }
     },
-    OptListStyle () {
+    optListStyle () {
       if(this.$props.selType !== 'SelectTypeC') {
         return {
           position: 'relative',
@@ -148,15 +156,23 @@ export default {
   methods: {
     onClickShow: function (e) {
       e.preventDefault();
-      this.MenuWrapShow = !this.MenuWrapShow;
+      this.menuWrapShow = !this.menuWrapShow;
     },
-    onClickItem(optData) {
-      this.MenuWrapShow = false;
+    onClickItem(optData,index) {
+      this.menuWrapShow = false;
       this.selectedText = optData.name;
+
+      this.$emit('getOptValue',optData.value);
+      this.$emit('getOptIdx', index);
+
+      console.log('index : ' + index, 'value : ' + optData.value);
     },
   },
   mounted() {
-
+    this.selectedText = this.$props.defaultText;
+    if(this.$props.selType === 'SelectTypeB') {
+      this.selectedText = this.$props.defaultTextB;
+    }
   },
 }
 </script>
@@ -191,6 +207,14 @@ button {
 }
 .SelectTypeC .ui-select-menu-btn {
   padding: 0;
+}
+.ui-select-menu-text {
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
 }
 /* 아이콘 타입 */
 .ico-type-md {

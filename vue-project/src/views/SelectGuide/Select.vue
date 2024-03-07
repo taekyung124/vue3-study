@@ -2,14 +2,24 @@
   <div>
     <div class="title">Select 가이드</div>
     <div class="sub-title">Select Type A</div>
-    <SelectBox :optList="optListA" />
+    <SelectBox :optList="optListA" :selectedText="defaultText" @getOptValue="clickedValA" @getOptIdx="clickedIdxA"/>
+    <div> index : {{ selectedIdxA }} / value : {{ selectedValA }} </div>
+    <button @click="getSelectItemA">Select A Option Check</button>
+
     <div class="sub-title">Select Type B</div>
-    <SelectBox selType="SelectTypeB" :optList="optListB"></SelectBox>
+    <SelectBox selType="SelectTypeB" :optList="optListB" :selectedText="defaultTextB" @getOptValue="clickedValB" @getOptIdx="clickedIdxB"/>
+    <div> index : {{ selectedIdxB }} / value : {{ selectedValB }} </div>
+    <button @click="getSelectItemB">Select B Option Check</button>
+
     <div class="sub-title">Select Type C</div>
-    <SelectBox selType="SelectTypeC" :optList="optListC" icoType="ico-type-sm"></SelectBox>
+    <SelectBox selType="SelectTypeC" :optList="optListC" icoType="ico-type-sm" :selectedText="defaultText" @getOptValue="clickedValC" @getOptIdx="clickedIdxC"/>
+    <div> index : {{ selectedIdxC }} / value : {{ selectedValC }} </div>
+    <button @click="getSelectItemC">Select C Option Check</button>
+
   </div>
 </template>
 <script>
+
 import SelectBox from "./SelectBox.vue";
 
 export default {
@@ -22,43 +32,78 @@ export default {
   },
   data() {
     return {
+      defaultText: '옵션을 선택해 주세요.',
+      defaultTextB: '옵션 B-2',
+      selectedValA: '선택 값 없음',
+      selectedValB: 'B-2',
+      selectedValC: '선택 값 없음',
+      selectedIdxA: '선택 값 없음',
+      selectedIdxB: '1',
+      selectedIdxC: '선택 값 없음',
       selType: [
         'SelectTypeA',
         'SelectTypeB',
         'SelectTypeC',
       ],
       optListA: [
-        { name: '옵션 A-1', value: '옵션 A-1'},
-        { name: '옵션 A-2', value: '옵션 A-2'},
-        { name: '옵션 A-3', value: '옵션 A-3'},
-        { name: '옵션 A-4', value: '옵션 A-4'},
-        { name: '옵션 A-5', value: '옵션 A-5'},
+        { name: '옵션 A-1', value: 'A-1',},
+        { name: '옵션 A-2', value: 'A-2',},
+        { name: '옵션 A-3', value: 'A-3',},
+        { name: '옵션 A-4', value: 'A-4',},
+        { name: '옵션 A-5', value: 'A-5',},
       ],
       optListB: [
-        { name: '옵션 B-1', value: '옵션 B-1'},
-        { name: '옵션 B-2', value: '옵션 B-2'},
-        { name: '옵션 B-3', value: '옵션 B-3'},
-        { name: '옵션 B-4', value: '옵션 B-4'},
-        { name: '옵션 B-5', value: '옵션 B-5'},
+        { name: '옵션 B-1', value: 'B-1',},
+        { name: '옵션 B-2', value: 'B-2',},
+        { name: '옵션 B-3', value: 'B-3',},
+        { name: '옵션 B-4', value: 'B-4',},
+        { name: '옵션 B-5', value: 'B-5',},
       ],
       optListC: [
-        { name: '옵션 C-1', value: '옵션 C-1'},
-        { name: '옵션 C-2', value: '옵션 C-2'},
-        { name: '옵션 C-3', value: '옵션 C-3'},
-        { name: '옵션 C-4', value: '옵션 C-4'},
-        { name: '옵션 C-5', value: '옵션 C-5'},
+        { name: '옵션 C-1', value: 'C-1',},
+        { name: '옵션 C-2', value: 'C-2',},
+        { name: '옵션 C-3', value: 'C-3',},
+        { name: '옵션 C-4', value: 'C-4',},
+        { name: '옵션 C-5', value: 'C-5',},
       ],
       icoType: [
         'ico-type-md',
         'ico-type-sm',
-      ]
+      ],
     }
   },
   computed: {
 
   },
   methods: {
+    clickedValA(changeVal) {
+        this.selectedValA = changeVal;
+    },
+    clickedIdxA(changeIdx) {
+      this.selectedIdxA = changeIdx;
+    },
+    clickedValB(changeVal) {
+      this.selectedValB = changeVal;
+    },
+    clickedIdxB(changeIdx) {
+      this.selectedIdxB = changeIdx;
+    },
+    clickedValC(changeVal) {
+      this.selectedValC = changeVal;
+    },
+    clickedIdxC(changeIdx) {
+      this.selectedIdxC = changeIdx;
+    },
 
+    getSelectItemA(){
+      alert('option index : ' + this.selectedIdxA + '/ option value : ' + this.selectedValA );
+    },
+    getSelectItemB(){
+      alert('option index : ' + this.selectedIdxB + '/ option value : ' + this.selectedValB );
+    },
+    getSelectItemC(){
+      alert('option index : ' + this.selectedIdxC + '/ option value : ' + this.selectedValC );
+    },
   },
 }
 </script>
