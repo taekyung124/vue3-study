@@ -159,6 +159,7 @@ export default {
       this.selectedText = optData.name;
 
       this.$emit('getOpt', optData.value, index);
+      this.$emit('setAlert',optData.value, index);
     },
   },
   mounted() {
